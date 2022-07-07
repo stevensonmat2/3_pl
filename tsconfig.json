@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "outDir": "build",
+    "lib": [ "es6", "dom" ],
+    "target": "es6",
+    "module": "es6",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "typeRoots": ["node_modules/@types"],
+    "plugins": [
+      {
+        "name": "typescript-strict-plugin"
+      }
+    ]
+  },
+  "include": ["src/**.ts", "gen/**.ts"],
+  "exclude": ["src/**.test.ts"]
+}
