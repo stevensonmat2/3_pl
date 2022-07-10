@@ -2,7 +2,7 @@ import "jest-extended";
 
 import { Value } from "../AST";
 import { AssertionError, executeStmt } from "./Statement";
-import { ProgramScope, ScopeError, declare } from "./Scope";
+import { ProgramScope, ScopeError, declare, lookup } from "./Scope";
 import { DynamicTypeError } from "./TypeAssertions";
 
 test("assertion statement test", () => {
@@ -89,7 +89,7 @@ test("assertion statement test", () => {
 });
 
 test("for statement test", () => {
-  const scope: ProgramScope = [new Map()];
+  let scope: ProgramScope = [new Map()];
 
   executeStmt(scope, {
     tag: "for",
@@ -247,67 +247,9 @@ test("for statement test", () => {
     ]
   })).toThrowError(ScopeError);
 
-  expect(scope).toEqual([new Map<string, Value>([["x", 100]])]);
+  expect(lookup("x", scope)).toEqual(1);
 
-  scope[0].delete("x");
-
-  expect(() => executeStmt(scope, {
-    tag: "block",
-    blockStmts: [
-      {
-        tag: "varDecl",
-        name: "a",
-        initialExpr: { tag: "num", value: 0 }
-      },
-      {
-        tag: "for",
-        name: "x",
-        initialExpr: { tag: "num", value: 1 },
-        condition: {
-          tag: "lessThan",
-          leftSubexpr: { tag: "var", name: "x" },
-          rightSubexpr: { tag: "num", value: 10 }
-        },
-        update: {
-          tag: "varUpdate",
-          name: "x",
-          newExpr: {
-            tag: "plus",
-            leftSubexpr: { tag: "var", name: "x" },
-            rightSubexpr: { tag: "num", value: 1 }
-          }
-        },
-        body: {
-          tag: "for",
-          name: "x",
-          initialExpr: { tag: "num", value: 1 },
-          condition: {
-            tag: "lessThan",
-            leftSubexpr: { tag: "var", name: "x" },
-            rightSubexpr: { tag: "num", value: 10 }
-          },
-          update: {
-            tag: "varUpdate",
-            name: "x",
-            newExpr: {
-              tag: "plus",
-              leftSubexpr: { tag: "var", name: "x" },
-              rightSubexpr: { tag: "num", value: 1 }
-            }
-          },
-          body: {
-            tag: "block",
-            blockStmts: []
-          }
-        }
-      }
-    ]
-  })).toThrowError(ScopeError);
-
-  expect(scope).toEqual([new Map<string, Value>([["a", 0], ["x", 1]])]);
-
-  scope[0].delete("a");
-  scope[0].delete("x");
+  scope = [new Map()];
 
   scope[0].set("a", 0);
 
