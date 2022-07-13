@@ -20,7 +20,7 @@ Before you ask a question, **re-read the comments in the part of the assignment 
 
 ## Assignment setup
 
-Download the code of the assignment project from <https://gitlab.cecs.pdx.edu/cas28/cs-320-assignment-3/-/archive/main/cs-320-assignment-3-main.zip>.
+Download the code of the assignment project from <https://gitlab.cecs.pdx.edu/cas28/assignment-3-cs-320-summer-2022/-/archive/main/assignment-3-cs-320-summer-2022-main.zip>.
 
 If you're using macOS or a GUI file manager on Linux, make sure to turn on the "show hidden files" setting in your file manager when you extract the zip archive. There should be a folder called ".vscode" in the archive, which will be invisible in your file manager by default because its name begins with a dot.
 
